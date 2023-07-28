@@ -6,7 +6,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 const galleryItem = document.querySelector('.gallery');
 const formEl = document.querySelector('.search-form');
 const inputEl = document.querySelector('.search-form input');
-const buttonEl = document.querySelector('.search-form button');
+// const buttonEl = document.querySelector('.search-form button');
 const loaderEl = document.querySelector('.loader');
 const lightbox = new SimpleLightbox('.gallery a');
 
