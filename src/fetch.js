@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL = 'https://pixabay.com/api';
-export const imagesOnPage = 40;
+export const imagesOnPage = 20;
 
 export async function getImages(currentPage, userInfo) {
     return await axios.get(`${BASE_URL}/?&page=${currentPage}&q=${userInfo}`, {
