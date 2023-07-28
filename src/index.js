@@ -15,7 +15,7 @@ let totalHits;
 let totalPages;
 let currentPage = 1;
 
-inputEl.addEventListener('input', checkInput);
+// inputEl.addEventListener('input', checkInput);
 formEl.addEventListener('submit', formSubmit);
 buttonEl.disabled = true;
 loaderEl.hidden = true;
@@ -31,7 +31,7 @@ let observer = new IntersectionObserver(onLoad, options);
 function onLoad(entries, observer) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            currentPage += 1;
+            // currentPage += 1;
             getImages(currentPage, userInfo)
                 .then(resp => {
                     const array = resp.data.hits;
@@ -50,22 +50,31 @@ function onLoad(entries, observer) {
     })
 }
 
-function checkInput(event) {
-    if ((event.target.value.trim().length) === 0) {
-        Notiflix.Notify.warning('Your query must start with a LETTER or NUMBER and must not be EMPTY!');
-        event.target.value = '';
-        buttonEl.disabled = true;
-        return;
-    }
-    buttonEl.disabled = false;
-    userInfo = event.target.value.trim();
-}
+// function checkInput(event) {
+//     if ((event.target.value.trim().length) === 0) {
+//         Notiflix.Notify.warning('Your query must start with a LETTER or NUMBER and must not be EMPTY!');
+//         event.target.value = '';
+//         buttonEl.disabled = true;
+//         return;
+//     }
+//     buttonEl.disabled = false;
+//     userInfo = event.target.value.trim();
+// }
 
 function formSubmit(event) {
     event.preventDefault();
     loaderEl.hidden = false;
-    inputEl.value = '';
     galleryItem.innerHTML = '';
+    currentPage = 1;
+    const { searchQuery } = event.target.elements;
+    userInfo = searchQuery.value.trim();
+
+    if (!userInfo) {
+        Notiflix.Notify.warning('Your query must start with a LETTER or NUMBER and must not be EMPTY!');
+        return;
+    }
+
+    inputEl.value = '';
     buttonEl.disabled = true;
     getImages(currentPage, userInfo)
         .then(resp => {
