@@ -13,7 +13,7 @@ const lightbox = new SimpleLightbox('.gallery a');
 let userInfo;
 let totalHits;
 let totalPages;
-let currentPage = 1;
+let currentPage = null;
 
 // inputEl.addEventListener('input', checkInput);
 formEl.addEventListener('submit', formSubmit);
@@ -74,31 +74,31 @@ function formSubmit(event) {
         return;
     }
 
-    inputEl.value = '';
-    buttonEl.disabled = true;
-    getImages(currentPage, userInfo)
-        .then(resp => {
-            totalHits = resp.data.totalHits;
-            totalPages = Math.ceil(totalHits / imagesOnPage);
-            const array = resp.data.hits;
-            loaderEl.hidden = true;
-            if (array.length === 0) {
-                Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.');
-            } else {
-                galleryItem.insertAdjacentHTML('beforeend', createMarkup(array));
-                lightbox.refresh();
-                Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-                if (totalHits > imagesOnPage) {
-                    observer.observe(target);
-                }
-            }
-        })
-        .catch(err => {
-            Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
-            loaderEl.hidden = true;
-            console.log(err);
-        }
-        );
+    // inputEl.value = '';
+    // buttonEl.disabled = true;
+    // getImages(currentPage, userInfo)
+    //     .then(resp => {
+    //         totalHits = resp.data.totalHits;
+    //         totalPages = Math.ceil(totalHits / imagesOnPage);
+    //         const array = resp.data.hits;
+    //         loaderEl.hidden = true;
+    //         if (array.length === 0) {
+    //             Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.');
+    //         } else {
+    //             galleryItem.insertAdjacentHTML('beforeend', createMarkup(array));
+    //             lightbox.refresh();
+    //             Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    //             if (totalHits > imagesOnPage) {
+    //                 observer.observe(target);
+    //             }
+    //         }
+    //     })
+    //     .catch(err => {
+    //         Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!');
+    //         loaderEl.hidden = true;
+    //         console.log(err);
+    //     }
+    //     );
 }
 
 function createMarkup(array) {
